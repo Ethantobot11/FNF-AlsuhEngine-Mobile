@@ -1,0 +1,28 @@
+name: Windows
+on: [push, pull_request]
+
+jobs:
+  Build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.4
+      - name: Install Haxe Libraries
+        run: |
+          haxelib setup C:/haxelib
+          haxelib install hmm --quiet
+          haxelib run hmm install --quiet
+        shell: cmd
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+      - name: Compile
+        run: haxelib run openfl build windows --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4.6.0
+        with:
+          name: Windows Build
+          path: export/release/windows/bin

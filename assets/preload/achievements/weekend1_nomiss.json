@@ -1,0 +1,19 @@
+{
+	"week_nomiss": "weekend1",
+	"index": -1,
+	"lua_code": "",
+	"save_tag": "weekend1_nomiss",
+	"desc": "Beat Weekend 1 on Hard with no Combo Breaks.",
+	"diff": "hard",
+	"name": "Just a Friendly Sparring",
+	"color": [
+		65,
+		60,
+		174
+	],
+	"song": "",
+	"maxScore": -1,
+	"maxDecimals": 0,
+	"hidden": false,
+	"misses": 0
+}

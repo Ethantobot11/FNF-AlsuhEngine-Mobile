@@ -1,0 +1,19 @@
+{
+	"week_nomiss": "",
+	"index": -1,
+	"lua_code": "",
+	"save_tag": "ur_good",
+	"desc": "Complete a Song with a rating of 100%.",
+	"diff": "",
+	"name": "Perfectionist",
+	"color": [
+		183,
+		77,
+		212
+	],
+	"song": "",
+	"maxScore": -1,
+	"maxDecimals": 0,
+	"hidden": false,
+	"misses": -1
+}

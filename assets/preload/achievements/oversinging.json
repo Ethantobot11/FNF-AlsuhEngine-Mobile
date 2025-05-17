@@ -1,0 +1,19 @@
+{
+	"week_nomiss": "",
+	"index": -1,
+	"lua_code": "",
+	"save_tag": "oversinging",
+	"desc": "Hold down a note for 10 seconds.",
+	"diff": "",
+	"name": "Oversinging Much...?",
+	"color": [
+		255,
+		228,
+		0
+	],
+	"song": "",
+	"maxScore": 0,
+	"maxDecimals": 0,
+	"hidden": false,
+	"misses": -1
+}
