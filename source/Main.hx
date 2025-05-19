@@ -1,9 +1,5 @@
 package;
 
-#if (!windows && !macos && !linux && !html5)
-#error "Only Windows, HTML5, Linux and MacOS supported for this game."
-#end
-
 import haxe.io.Path;
 import haxe.Exception;
 
