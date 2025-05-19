@@ -1,4 +1,4 @@
-package;
+package lime.utils;
 
 import openfl.Lib;
 #if android
