@@ -20,7 +20,7 @@ on:
         type: string
 
 env:
-  HAXE_VERSION: 4.2.2
+  HAXE_VERSION: 4.3.4
   PROJECT_NAME: AlsuhEngine
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4.2.2
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
@@ -73,7 +73,7 @@ jobs:
           zip -r ${{ env.PROJECT_NAME }}.ipa Payload
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ inputs.artifactName }}
           path: ${{ inputs.artifactPath }}
