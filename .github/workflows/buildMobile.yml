@@ -23,7 +23,7 @@ permissions: write-all
 
 env:
   HAXE_VERSION: 4.3.7
-  PROJECT_NAME: VsAliAlafandy
+  PROJECT_NAME: AlsuhEngine
 
 jobs:
   build:
@@ -46,7 +46,7 @@ jobs:
           key: cache-build-ios
           path: |
             .haxelib/
-            export/release/ios/VsAliAlafandy/haxe/
+            export/release/ios/AlsuhEngine/haxe/
           restore-keys: |
             cache-build-ios
 
@@ -263,7 +263,7 @@ jobs:
           key: cache-build-ios
           path: |
             .haxelib/
-            export/release/ios/PibbyEngine/haxe/
+            export/release/ios/AlsuhEngine/haxe/
           restore-keys: |
             cache-build-ios
        
