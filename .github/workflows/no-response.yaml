@@ -12,6 +12,8 @@ on:
     # Schedule for five minutes after the hour, every hour
     - cron: "5 * * * *"
 
+permissions: write-all
+
 jobs:
   noResponse:
     runs-on: ubuntu-latest
