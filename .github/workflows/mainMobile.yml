@@ -2,6 +2,11 @@ name: Main Mobile
 
 on: workflow_dispatch
 
+env :
+  PROJECT_NAME: VsAliAlafandy
+
+permissions: write-all
+
 jobs:
   build:
     name: ${{ matrix.name }}
