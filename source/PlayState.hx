@@ -65,6 +65,10 @@ import flixel.addons.display.FlxTiledSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.addons.transition.FlxTransitionableState;
 
+#if VIDEOS_ALLOWED
+import hxvlc.flixel.FlxVideoSprite as VideoSprite;
+#end
+
 using StringTools;
 
 class PlayState extends MusicBeatState
