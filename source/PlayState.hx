@@ -1966,43 +1966,55 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startAndEnd():Void
+	public function startVideo(name:String)
 	{
-		if (endingSong)
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
+
+		var filepath:String = Paths.video(name);
+		#if sys
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
+		#end
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			startAndEnd();
+			return;
+		}
+
+		var video:VideoSprite = new VideoSprite();
+		add(video);
+		video.load(filepath);
+		video.play();
+		video.cameras = [luaTpadCam];
+		video.alpha = 1;
+		video.visible = true;
+		video.bitmap.onFormatSetup.add(function()
+		{
+			video.setGraphicSize(FlxG.width, FlxG.height);
+			video.updateHitbox();
+			video.screenCenter();
+		});
+		video.bitmap.onEndReached.add(function()
+		{
+			video.destroy();
+			startAndEnd();
+			return;
+		});
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
+		return;
+		#end
+	}
+
+	function startAndEnd()
+	{
+		if(endingSong)
 			endSong();
 		else
 			startCountdown();
-	}
-
-	public function startVideo(name:String, ?finishCallback:Void->Void):Void
-	{
-		#if VIDEOS_ALLOWED
-		if (Paths.fileExists(Paths.getVideo(name), BINARY))
-		{
-			var video:FlxVideo = new FlxVideo(name, function(video:FlxVideo):Void
-			{
-				remove(video, true);
-				video.destroy();
-
-				if (finishCallback != null) {
-					finishCallback();
-				}
-				else startAndEnd();
-			});
-
-			add(video);
-		}
-		else {
-			Debug.logWarn('Couldnt find video file: ' + name);
-		}
-		#else
-		Debug.logWarn('Platform not supported!');
-
-		if (finishCallback != null) {
-			finishCallback();
-		}
-		else startAndEnd();
-		#end
 	}
 
 	var dialogueCount:Int = 0;
