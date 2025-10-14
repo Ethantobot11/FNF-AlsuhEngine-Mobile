@@ -3,16 +3,21 @@ name: Main Mobile
 on: workflow_dispatch
 
 jobs:
-  Build:
+  build:
     name: ${{ matrix.name }}
     strategy:
       matrix:
         include:
           - name: Android
             os: macos-15
-            buildArgs: "android -ONLY_ARMV7"
+            buildArgs: "android -final"
             artifactName: Android
             artifactPath: "export/release/android/bin/app/build/outputs/apk/release/*.apk"
+          - name: iOS
+            os: macos-15
+            buildArgs: "ios -final -nosign"
+            artifactName: iOS
+            artifactPath: "export/release/ios/build/Release-iphoneos/*.ipa"
     uses: ./.github/workflows/buildMobile.yml
     with:
         name: ${{ matrix.name }}
@@ -20,3 +25,56 @@ jobs:
         buildArgs: ${{ matrix.buildArgs }}
         artifactName: ${{ matrix.artifactName }}
         artifactPath: ${{ matrix.artifactPath }}
+  Releaser:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Download Android Build
+        uses: actions/download-artifact@main
+        with:
+           name: androidBuild
+           path: /home/runner
+
+      - name: Move Android File
+        run: mv /home/runner/${{ env.PROJECT_NAME }}-release.apk /home/runner/${{ env.PROJECT_NAME }}-Android.apk
+
+      - name: Download Windows Build
+        uses: actions/download-artifact@main
+        with:
+           name: Windows
+           path: /home/runner
+        
+      - name: Download iOS Build
+        uses: actions/download-artifact@main
+        with:
+           name: iOS
+           path: ${{ github.workspace }}
+      - name: Move iOS File
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.ipa /home/runner/${{ env.PROJECT_NAME }}.ipa
+        
+      - name: Download Mac Build
+        uses: actions/download-artifact@main
+        with:
+           name: MacOS
+           path: /home/runner
+        
+      - name: Download Linux Build
+        uses: actions/download-artifact@main
+        with:
+           name: Linux
+           path: /home/runner 
+
+      
+      - name: Publish The Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "0.7.3"
+          tag_name: "0.7.3"
+          prerelease: false
+          files: |
+            /home/runner/*.apk
+            /home/runner/*.ipa
+            Windows
+            Linux
+            MacOS
