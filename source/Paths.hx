@@ -322,9 +322,16 @@ class Paths
 		return getFile('shaders/$key.vert', TEXT, library, ignoreMods);
 	}
 
-	public static function getVideo(key:String, ?library:Null<String> = null, ?ignoreMods:Null<Bool> = false):String
+	static public function video(key:String)
 	{
-		return getFile('videos/$key.$VIDEO_EXT', BINARY, library, ignoreMods);
+		#if MODS_ALLOWED
+		var file:String = modsVideo(key);
+		if (FileSystem.exists(file))
+		{
+			return file;
+		}
+		#end
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	public static function getSound(key:String, ?library:Null<String> = null, ?getFileLocation:Null<Bool> = false, ?ignoreMods:Null<Bool> = false):FlxSoundAsset
