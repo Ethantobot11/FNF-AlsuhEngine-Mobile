@@ -707,7 +707,7 @@ class PlayState extends MusicBeatState
 				{
 					createCan();
 					precacheCasing();
-					startVideo('darnellCutscene', darnellCutscene);
+					startVideo('darnellCutscene');
 				}
 				default: startCountdown();
 			}
