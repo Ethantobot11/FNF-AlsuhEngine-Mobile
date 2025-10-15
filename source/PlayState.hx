@@ -1987,7 +1987,7 @@ class PlayState extends MusicBeatState
 		add(video);
 		video.load(filepath);
 		video.play();
-		video.cameras = [luaTpadCam];
+		video.cameras = [camOther];
 		video.alpha = 1;
 		video.visible = true;
 		video.bitmap.onFormatSetup.add(function()
