@@ -2311,32 +2311,29 @@ class FunkinLua
 			else
 			{
 				PlayState.debugTrace('startDialogue: Dialogue file not found', false, 'error', FlxColor.RED);
-				game.startAndEnd();
 			}
 
 			return false;
 		});
 
-		set("startVideo", function(videoFile:String):Bool
-		{
+		set("startVideo", function(videoFile:String) {
 			#if VIDEOS_ALLOWED
-			if (Paths.fileExists(Paths.getVideo(videoFile), BINARY))
-			{
-				game.startVideo(videoFile);
+			if(FileSystem.exists(Paths.video(videoFile))) {
+				PlayState.instance.startVideo(videoFile);
 				return true;
+			} else {
+				luaTrace('startVideo: Video file not found: ' + videoFile, false, false, FlxColor.RED);
 			}
-			else
-			{
-				PlayState.debugTrace('startVideo: Video file not found: ' + videoFile, false, 'error', FlxColor.RED);
-				game.startAndEnd();
-				return false;
+			return false;
+
+			#else
+			if(PlayState.instance.endingSong) {
+				PlayState.instance.endSong();
+			} else {
+				PlayState.instance.startCountdown();
 			}
-			#end
-
-			PlayState.debugTrace('Platform not supported!', false, 'error', FlxColor.RED);
-
-			game.startAndEnd();
 			return true;
+			#end
 		});
 
 		set("keyboardJustPressed", function(name:String):Bool
